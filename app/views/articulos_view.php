@@ -22,9 +22,10 @@ class ArticulosView {
         $this->smarty->display('listaArticulosGuest.tpl');
     }
 
-    function showArticulo($articulo, $categoria) {
+    function showArticulo($articulo, $categoria, $categorias) {
         $this->smarty->assign('articulo', $articulo);
         $this->smarty->assign('categoria', $categoria);
+        $this->smarty->assign('categorias', $categorias);
         $this->smarty->display('articuloEspecifico.tpl');
     }
 

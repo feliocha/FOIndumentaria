@@ -36,4 +36,10 @@ class CategoriasModel {
         $query->execute([$id]);
     }
 
+    function updateCategoria($nombre,$id) {
+        $db = $this->getDB();
+        $query = $db->prepare("UPDATE categorias SET nombre=? WHERE id=?");
+        $query->execute([$nombre,$id]);
+    }
+
 }

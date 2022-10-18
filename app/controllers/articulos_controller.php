@@ -31,7 +31,6 @@ class ArticulosController {
             $this->view->showArticulos($articulos,$categorias);
         }
         else {
-            echo("no es admin");
             $this->view->showArticulosGuest($articulos,$categorias);
         }
     }
@@ -39,8 +38,9 @@ class ArticulosController {
     function showArticulo($id){
         $articulo = $this->model->getArticulo($id);
         $categoriaArticulo = $this->modelcat->getCategoria($articulo->id_categoria);
+        $categorias = $this->modelcat->getCategorias();
         if ($this->authHelper->itsAdmin()==true){
-            $this->view->showArticulo($articulo,$categoriaArticulo);
+            $this->view->showArticulo($articulo,$categoriaArticulo,$categorias);
         }
         else {
             $this->view->showArticuloGuest($articulo,$categoriaArticulo);
@@ -74,10 +74,21 @@ class ArticulosController {
     }
 
     function updateArticulo($id) {
-        $nombre = $_POST['nombre'];
-        $precio = $_POST['precio'];
-        $this->model->updateArticulo($nombre,$precio,$id);
-        header("Location: " . BASE_URL);
+        if ($this->authHelper->itsAdmin()==true){
+            $nombre = $_POST['nombre'];
+            $precio = $_POST['precio'];
+            $id_categoria = $_POST['id_categoria'];
+            if (empty($nombre)||empty($precio)||empty($id_categoria)){
+                $this->view->showError('Faltan datos obligatorios.');
+            }
+            else {
+                $this->model->updateArticulo($nombre,$precio,$id_categoria,$id);
+                header("Location: " . BASE_URL);
+            }
+        }
+        else {
+            $this->view->showError('Usted no tiene los permisos necesarios para realizar esta accion.');
+        }
     }
 
 }

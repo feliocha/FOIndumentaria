@@ -21,6 +21,15 @@
         </div>
     </div>
 
+    <div class="form-group">
+        <label>Categoria</label>
+        <select name="id_categoria">
+            {foreach from=$categorias item=categoria}
+                <option value="{$categoria->id}">{$categoria->nombre}</option>
+            {/foreach}
+        </select>
+    </div>
+
     <button type="submit" class="btn btn-primary mt-2">Actualizar</button>
 </form>
 

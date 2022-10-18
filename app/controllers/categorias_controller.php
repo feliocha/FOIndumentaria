@@ -66,6 +66,22 @@ class CategoriasController {
         }
     }
 
+    function updateCategoria($id) {
+        if ($this->authHelper->itsAdmin()==true){
+            $nombre = $_POST['nombre'];
+            if (empty($nombre)){
+                $this->view->showError('Faltan datos obligatorios.');
+            }
+            else {
+                $this->model->updateCategoria($nombre,$id);
+                header("Location: " . BASE_URL);
+            }
+        }
+        else {
+            $this->view->showError('Usted no tiene los permisos necesarios para realizar esta accion.');
+        }
+    }
+
 }
 
 ?>

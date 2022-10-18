@@ -44,10 +44,10 @@ class ArticulosModel {
         $query->execute([$id]);
     }
 
-    function updateArticulo($nombre,$precio,$id) {
+    function updateArticulo($nombre,$precio,$categoria,$id) {
         $db = $this->getDB();
-        $query = $db->prepare("UPDATE articulos SET nombre=?, precio=? WHERE id=?");
-        $query->execute([$nombre,$precio,$id]);
+        $query = $db->prepare("UPDATE articulos SET nombre=?, precio=?, id_categoria=? WHERE id=?");
+        $query->execute([$nombre,$precio,$categoria,$id]);
     }
 
 }
